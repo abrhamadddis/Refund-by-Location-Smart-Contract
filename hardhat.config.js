@@ -5,11 +5,11 @@ require('dotenv').config();
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
-  solidity: "0.8.19",
+  solidity: "0.8.9",
   networks:{
     sepolia: {
       url:process.env.ALCHEMY_TESTNET_RPC_URL,
-      accounts:[process.env.ESTNET_PRIVATE_KEY]
+      accounts:[process.env.TESTNET_PRIVATE_KEY]
     }
   }
 };

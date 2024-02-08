@@ -1,22 +1,15 @@
+const hre = require("hardhat");
+
 async function main() {
-  const Counter = await hre.ethers.getContractFactory("Counter");
-  const counter = await Counter.deploy(); // Attempt to deploy the contract
+  const RefundByLocation = await hre.ethers.getContractFactory("RefundByLocation");
+  const refundByLocation = await RefundByLocation.deploy();
 
-  // Manually send the deployment transaction and catch any errors
-  try {
-    const tx = await counter.deployTransaction.send();
-    await tx.wait();
-  } catch (error) {
-    console.error("Failed to deploy the contract:", error);
-    throw error;
-  }
+  await refundByLocation.deployed();
 
-  console.log(`Counter deployed to: ${counter.address}`);
+  console.log("RefundByLocation deployed to:", refundByLocation.address);
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
 main().catch((error) => {
   console.error(error);
-  process.exitCode =   1;
+  process.exitCode =  1;
 });

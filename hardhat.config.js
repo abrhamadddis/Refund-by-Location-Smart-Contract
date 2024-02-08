@@ -1,15 +1,16 @@
 require("@nomicfoundation/hardhat-toolbox");
-require('dotenv').config();
+require("dotenv").config
 
-
-
-/** @type import('hardhat/config').HardhatUserConfig */
+const {INFURA_AIP_KEY, PRIVATE_KEY} = process.env
 module.exports = {
-  solidity: "0.8.9",
+  solidity: "0.8.19",
+  defaultNetwork: "sepolia",
   networks:{
-    sepolia: {
-      url:process.env.ALCHEMY_TESTNET_RPC_URL,
-      accounts:[process.env.TESTNET_PRIVATE_KEY]
-    }
+    hardhat:{},
+    sepolia:{
+      url:`https://sepolia.infura.io/v3/${INFURA_AIP_KEY}`,
+      accounts:[PRIVATE_KEY],
+      chainId: 1115511,
+    },
   }
 };

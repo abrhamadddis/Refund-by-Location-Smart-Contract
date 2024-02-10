@@ -1,15 +1,27 @@
-const hre = require("hardhat");
+const { ethers } = require("hardhat");
 
 async function main() {
-  const RefundByLocation = await hre.ethers.getContractFactory("RefundByLocation");
-  const refundByLocation = await RefundByLocation.deploy();
+  const [deployer] = await ethers.getSigners();
 
-  await refundByLocation.deployed();
+  console.log("Deploying contracts with the account:", deployer.address);
 
-  console.log("RefundByLocation deployed to:", refundByLocation.address);
+  const RefundByLocation = await ethers.getContractFactory("RefundByLocation");
+  let contract;
+  try {
+    contract = await RefundByLocation.deploy();
+    await contract.deployTransaction.wait();
+  } catch (error) {
+    console.error("Deployment failed:", error);
+    throw error;
+  }
+
+  console.log("Contract address:", contract.address);
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exitCode =  1;
-});
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
+  
